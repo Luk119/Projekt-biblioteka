@@ -17,17 +17,15 @@ def main():
         choice = int(input("Wybierz opcję: "))
 
         if choice == 1:
-            book_id = input("Podaj ID książki: ")
-            title = input("Podaj tytuł książki: ")
             author = input("Podaj autora książki: ")
-            year = input("Podaj rok wydania książki: ")
-            bm.add_book(book_id, title, author, year)
+            title = input("Podaj tytuł książki: ")
+            pages = input("Podaj ilość stron książki: ")
+            bm.add_book(author, title, pages)
             print(f"Książka '{title}' została dodana pomyślnie")
 
         elif choice == 2:
-            book_id = input("Podaj ID książki do usunięcia: ")
-            bm.remove_book_by_id(book_id)
-            print("Książka została usunięta")
+            book_id_or_title = input("Podaj ID lub tytuł książki do usunięcia: ")
+            bm.delete_book(book_id_or_title)
 
         elif choice == 3:
             name = input("Podaj imię klienta: ")
