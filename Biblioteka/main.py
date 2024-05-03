@@ -28,14 +28,22 @@ def main():
             bm.delete_book(book_id_or_title)
 
         elif choice == 3:
-            name = input("Podaj imię klienta: ")
-            surname = input("Podaj nazwisko klienta: ")
-            customer_id = cm.register_customer(name, surname)
-            print(f"Klient został zarejestrowany, jego ID to: {customer_id}")
+            print("1. Dodaj Klienta")
+            print("2. Usuń Klienta")
+            a = int(input("Dokonaj wyboru: "))
+            if a == 1:
+                name = input("Podaj imię klienta: ")
+                email = input("Podaj e-mail klienta: ")
+                phone = input("Podaj numer tel. klienta:")
+                cm.add_customer(a, name, email, phone)
+            elif a == 2:
+                id = input("Podaj id klienta którego chcesz usunąć: ")
+            else:
+                print("Error Invalid action.")
 
         elif choice == 4:
             customer_id = input("Podaj ID klienta do usunięcia: ")
-            cm.remove_customer_by_id(customer_id)
+            cm.remove_customer(customer_id)
             print("Klient został usunięty")
 
         elif choice == 5:

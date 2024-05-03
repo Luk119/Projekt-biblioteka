@@ -1,14 +1,33 @@
 import pandas as pd
 import datetime
-import os
-def add_customer(name, email, password):
-    df = pd.read_csv("Library/customer.csv", usecols=['ID', 'NAME', 'E-MAIL', 'PHONE', 'CREATED', 'UPDATED'])
+import random
+def add_customer(action, name, email, phone):
 
-    max_index = df.shape[0] + 1
-    while max_index in df.index:
-        max_index += 1
+    if len(phone) != 9:
+        print("Phone number is invalid")
+        print("User was not registered")
+        return 1
 
-    time = datetime.date.today()
-    df.loc[max_index] = [author, title, pages, time, time]
-    print(df.head(5))
-    df.to_csv("Library/book.csv")
+    if action == 1:
+
+        #
+        df = pd.read_csv("Library/customer.csv", usecols=['ID', 'NAME', 'E-MAIL', 'PHONE', 'CREATED', 'UPDATED'],index_col='ID')
+
+        time = datetime.date.today()
+        id = random.randint(1000, 9999)
+        while True:
+            if id in df.index:
+                id = random.randint(1000, 9999)
+                continue
+            else:
+                break
+
+        df.loc[id] = [name, email, int(phone), time, time]
+        df.to_csv("Library/customer.csv")
+        #
+        print("Klient dodany pomyślnie")
+    elif action == 2:
+        pass
+
+def remove_customer(id):
+    pass
