@@ -31,6 +31,7 @@ def main():
             print("1. Dodaj klienta")
             print("2. Zaktualizuj dane klienta")
             action = input("wybierz:")
+
             if action == "1":
                 name = input("Podaj imię klienta: ")
                 email = input("Podaj e-mail klienta: ")
@@ -38,14 +39,14 @@ def main():
                 cm.add_customer(name, email, phone)
 
             elif action == "2":
+                customer_id = input("Podaj ID klienta którego chcesz zaktualizować:")
                 street = input("Podaj ulicę:")
                 city = input("Podaj miasto: ")
                 country = input("Podaj kraj: ")
+                cm.update_customer_address(customer_id, street, city, country)
 
             else:
                 print("Wrong action")
-
-
 
         elif choice == 4:
             print("1. Usuń po ID")

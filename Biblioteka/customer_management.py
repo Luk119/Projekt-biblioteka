@@ -29,6 +29,10 @@ def add_customer(name, email, phone):
 
     print("Klient dodany pomyślnie, plik klienta utworzony")
 
+def update_customer_address(customer_id, street, city, country):
+    df_address = pd.read_csv("Library/address.csv", index_col='ID')
+    df_address.loc[customer_id] = [street, city, country]
+    df_address.to_csv("Library/address.csv")
 
 def remove_customer(customer_id=None, name=""):
     df_customer = pd.read_csv("Library/customer.csv", usecols=['ID', 'NAME', 'E-MAIL', 'PHONE', 'CREATED', 'UPDATED'],index_col='ID')
