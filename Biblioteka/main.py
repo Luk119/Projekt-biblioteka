@@ -28,26 +28,40 @@ def main():
             bm.delete_book(book_id_or_title)
 
         elif choice == 3:
-            print("1. Dodaj Klienta")
-            print("2. Usuń Klienta")
-            a = int(input("Dokonaj wyboru: "))
-            if a == 1:
+            print("1. Dodaj klienta")
+            print("2. Zaktualizuj dane klienta")
+            action = input("wybierz:")
+            if action == "1":
                 name = input("Podaj imię klienta: ")
                 email = input("Podaj e-mail klienta: ")
                 phone = input("Podaj numer tel. klienta:")
-                cm.add_customer(a, name, email, phone)
-            elif a == 2:
-                id = input("Podaj id klienta którego chcesz usunąć: ")
+                cm.add_customer(name, email, phone)
+
+            elif action == "2":
+                street = input("Podaj ulicę:")
+                city = input("Podaj miasto: ")
+                country = input("Podaj kraj: ")
+
             else:
-                print("Error Invalid action.")
+                print("Wrong action")
+
+
 
         elif choice == 4:
-            customer_id = input("Podaj ID klienta do usunięcia: ")
-            cm.remove_customer(customer_id)
-            print("Klient został usunięty")
+            print("1. Usuń po ID")
+            print("2. Usuń po imieniu")
+            action = input("wybierz: ")
+            if action == "1":
+                customer_id = int(input("Podaj ID klienta do usunięcia: "))
+                cm.remove_customer(customer_id=customer_id)
+            elif action == "2":
+                customer_name = input("Podaj imie klienta: ")
+                cm.remove_customer(name=customer_name)
+            else:
+                print("Wrong action")
 
         elif choice == 5:
-            customer_id == input("Podaj ID klienta: ")
+            customer_id = input("Podaj ID klienta: ")
             book_ids = input("Podaj ID książek oddzielone spacją: "). split(" ")
             lm.borrow_books(customer_id, *book_ids)
             print("Książki zostąły wypożycznone")
