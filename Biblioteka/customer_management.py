@@ -2,27 +2,27 @@ import pandas as pd
 import datetime
 import random
 import os
+import is_valid as iv
 def add_customer(name, email, phone):
 
-    if len(phone) != 9:
+    if not iv.phone_validation(phone):
         print("Phone number is invalid")
         print("User was not registered")
-        return 1
 
     df = pd.read_csv("Library/customer.csv", usecols=['ID', 'NAME', 'E-MAIL', 'PHONE', 'CREATED', 'UPDATED'],index_col='ID')
 
     time = datetime.date.today()
-    id = random.randint(1000, 9999)
+    customer_id = random.randint(1000, 9999)
 
-    while id in df.index:
-        id = random.randint(1000, 9999)
+    while customer_id in df.index:
+        customer_id = random.randint(1000, 9999)
 
-    df.loc[id] = [name, email, int(phone), time, time]
+    df.loc[customer_id] = [name, email, int(phone), time, time]
     df.to_csv("Library/customer.csv")
 
     if os.path.exists("DATABASE"):
-        with open (f"DATABASE/{id}.txt", "w")as file:
-            pass
+        with open(f"DATABASE/{customer_id}.txt", "w")as file:
+            file.write(f"Książki wypożyczone przez użytkownika {name}")
 
     else:
         print("Error - Database directory does not exist")

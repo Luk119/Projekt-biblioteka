@@ -33,7 +33,7 @@ def main():
             action = input("wybierz:")
 
             if action == "1":
-                name = input("Podaj imię klienta: ")
+                name = input("Podaj imię i nazwisko klienta : ")
                 email = input("Podaj e-mail klienta: ")
                 phone = input("Podaj numer tel. klienta:")
                 cm.add_customer(name, email, phone)
@@ -65,13 +65,11 @@ def main():
             customer_id = input("Podaj ID klienta: ")
             book_ids = input("Podaj ID książek oddzielone spacją: "). split(" ")
             lm.borrow_books(customer_id, *book_ids)
-            print("Książki zostąły wypożycznone")
 
         elif choice == 6:
             customer_id = input("Podaj ID klienta:")
-            book_ids = input("Podaj ID książek oddzielone spacją: ").split()
-            lm.return_books(customer_id, *book_ids)
-            print("Książki zostały zwrócone")
+            book_ids = input("Podaj ID książki do oddania: ")
+            lm.return_book(customer_id, *book_ids)
 
         elif choice == 0:
             print("Program został zakończony")
