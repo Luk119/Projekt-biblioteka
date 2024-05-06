@@ -72,7 +72,7 @@ def add_customer(name, email, phone):
     while customer_id in df.index:
         customer_id = random.randint(1000, 9999)
 
-    df.loc[customer_id] = [name, email, int(phone), time, 0]
+    df.loc[customer_id] = [name, email, int(phone), time, "False"]
     df.to_csv("Library/customer.csv")
 
     if os.path.exists("DATABASE"):
@@ -107,8 +107,11 @@ def update_customer_address(customer_id, street, city, country):
     time = datetime.date.today()
 
     df_customer = pd.read_csv("Library/customer.csv", usecols=['ID', 'NAME', 'E-MAIL', 'PHONE', 'CREATED', 'UPDATED'], index_col="ID")
-    df_customer.loc[customer_id, "UPDATED"] = pd.Timestamp(time)
+    df_customer['UPDATED'] = df_customer['UPDATED'].astype(str)
+    df_customer.loc[customer_id, "UPDATED"] = str(time)
     df_customer.to_csv("Library/customer.csv")
+
+    print(f"The Customer {customer_id} has been successfully updated.")
 
 
 def remove_customer(customer_id=None, name=""):
@@ -194,8 +197,4 @@ def print_customers():
     """
     df_customer = pd.read_csv("Library/customer.csv", usecols=['ID', 'NAME', 'E-MAIL', 'PHONE'], index_col='ID')
     print(df_customer.head(1000))
-
-
-
-
 

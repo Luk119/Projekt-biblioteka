@@ -1,6 +1,4 @@
 from Biblioteka import book_management as bm, customer_management as cm, loan_management as lm, is_valid as iv
-import os
-
 
 def print_menu():
     print("---Menu---")
@@ -38,12 +36,12 @@ def main():
             if action == "1":
                 name = input("Type the client name : ")
                 email = input("Type the client e-mail: ")
-                phone = input("Type the client phone number:")
+                phone = input("Type the client phone number: ")
                 cm.add_customer(name, email, phone)
 
             elif action == "2":
-                customer_id = int(input("Type the client ID that you want to update:"))
-                street = input("Type the street address: :")
+                customer_id = int(input("Type the client ID that you want to update: "))
+                street = input("Type the street address: ")
                 city = input("Type the city address: ")
                 country = input("Type the country: ")
                 cm.update_customer_address(customer_id, street, city, country)
