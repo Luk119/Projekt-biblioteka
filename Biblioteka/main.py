@@ -1,5 +1,6 @@
-from Biblioteka import book_management as bm, customer_management as cm, loan_management as lm
+from Biblioteka import book_management as bm, customer_management as cm, loan_management as lm, is_valid as iv
 import os
+
 
 def print_menu():
     print("---Menu---")
@@ -9,8 +10,10 @@ def print_menu():
     print("4. - Delete the customer")
     print("5. - Borrow books")
     print("6. - Return books")
-    print("7. - Write a list of books")
+    print("7. - Show a list of books")
+    print("8. - Show a list of customers")
     print("0. - Close the program")
+
 
 def main():
     while True:
@@ -28,7 +31,7 @@ def main():
             bm.delete_book(book_id_or_title)
 
         elif choice == 3:
-            print("1. Adda customer")
+            print("1. Add a customer")
             print("2. Update user address")
             action = input("Choose:")
 
@@ -63,9 +66,12 @@ def main():
                 print("Wrong action")
 
         elif choice == 5:
-            customer_id = input("Type the client ID: ")
-            book_ids = input("Type the titles of the books that you want to borrow (by comma - ', '): "). split(", ")
-            lm.borrow_books(int(customer_id), *book_ids)
+            customer_id = int(input("Type the client ID: "))
+            if iv.is_updated(customer_id):
+                book_ids = input("Type the titles of the books that you want to borrow (by comma - ', '): "). split(", ")
+                lm.borrow_books(int(customer_id), *book_ids)
+            else:
+                print("This customer is not updated yet. Complete the address information.")
 
         elif choice == 6:
             customer_id = input("Type the client ID: ")
@@ -76,12 +82,17 @@ def main():
             print("List of books:")
             bm.print_books()
 
+        elif choice == 8:
+            print("List of customers:")
+            cm.print_customers()
+
         elif choice == 0:
             print("The program has ended")
             break
 
         else:
             print("Wrong choice, try again")
+
 
 if __name__ == "__main__":
     main()

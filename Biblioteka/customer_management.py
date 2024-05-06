@@ -24,6 +24,10 @@ FUNCTIONS
         It can be done by providing either customer ID or name.
             returns True if the customer was removed correctly / False if something went wrong.
 
+    - print_customers():
+        Prints the information about all customers from the library system.
+            returns nothing
+
 EXAMPLES
 - add_customer("Tomasz Nowak", "tomasz.nowak123@gamil.com", "503931449")
 - update_customer_address(5488, "Pogodna 22", "Nowe miasto", "Polska")
@@ -55,7 +59,12 @@ def add_customer(name, email, phone):
         print("User was not registered")
         return False
 
-    df = pd.read_csv("Library/customer.csv", usecols=['ID', 'NAME', 'E-MAIL', 'PHONE', 'CREATED', 'UPDATED'],index_col='ID')
+    try:
+        df = pd.read_csv("Library/customer.csv", usecols=['ID', 'NAME', 'E-MAIL', 'PHONE', 'CREATED', 'UPDATED'], index_col='ID')
+
+    except FileNotFoundError as e:
+        print(e)
+        return False
 
     time = datetime.date.today()
     customer_id = random.randint(1000, 9999)
@@ -63,11 +72,11 @@ def add_customer(name, email, phone):
     while customer_id in df.index:
         customer_id = random.randint(1000, 9999)
 
-    df.loc[customer_id] = [name, email, int(phone), time, time]
+    df.loc[customer_id] = [name, email, int(phone), time, 0]
     df.to_csv("Library/customer.csv")
 
     if os.path.exists("DATABASE"):
-        with open(f"DATABASE/{customer_id}.txt", "w")as file:
+        with open(f"DATABASE/{customer_id}.txt", "w") as file:
             file.write(f"Books lend by {name} user: ")
 
     else:
@@ -94,6 +103,12 @@ def update_customer_address(customer_id, street, city, country):
     df_address = pd.read_csv("Library/address.csv", index_col='ID')
     df_address.loc[customer_id] = [street, city, country]
     df_address.to_csv("Library/address.csv")
+
+    time = datetime.date.today()
+
+    df_customer = pd.read_csv("Library/customer.csv", usecols=['ID', 'NAME', 'E-MAIL', 'PHONE', 'CREATED', 'UPDATED'], index_col="ID")
+    df_customer.loc[customer_id, "UPDATED"] = pd.Timestamp(time)
+    df_customer.to_csv("Library/customer.csv")
 
 
 def remove_customer(customer_id=None, name=""):
@@ -170,6 +185,16 @@ def remove_customer(customer_id=None, name=""):
             print(f"Customer {id_from_name} removed from 'DATABASE/{id_from_name}.txt' file")
 
         return True
+def print_customers():
+    """
+    Prints information about all customers stored in the "Library/books.csv" file.
+
+    returns:
+        nothing
+    """
+    df_customer = pd.read_csv("Library/customer.csv", usecols=['ID', 'NAME', 'E-MAIL', 'PHONE'], index_col='ID')
+    print(df_customer.head(1000))
+
 
 
 

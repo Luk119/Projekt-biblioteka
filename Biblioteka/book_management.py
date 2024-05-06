@@ -94,8 +94,8 @@ def print_books():
     """
     Prints information about all books stored in the "Library/books.csv" file.
 
-    Returns:
-        None
+    returns:
+        nothing
     """
     df = pd.read_csv("Library/book.csv", usecols=['ID', 'AUTHOR', 'TITLE', 'PAGES', 'CREATED', 'UPDATED'], index_col='ID')
     print(df.head(1000))
