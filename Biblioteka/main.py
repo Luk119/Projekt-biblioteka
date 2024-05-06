@@ -3,84 +3,85 @@ import os
 
 def print_menu():
     print("---Menu---")
-    print("1. - Dodaj książkę")
-    print("2. - Usuń książkę")
-    print("3. - Zarejestruj klienta")
-    print("4. - Usuń klienta")
-    print("5. - Wypożycz książki")
-    print("6. - Zwróć książki")
-    print("7. - Wypisz spis książek")
-    print("0. - Zamknij program")
+    print("1. - Add a book")
+    print("2. - Delete the book")
+    print("3. - Register a customer")
+    print("4. - Delete the customer")
+    print("5. - Borrow books")
+    print("6. - Return books")
+    print("7. - Write a list of books")
+    print("0. - Close the program")
 
 def main():
     while True:
         print_menu()
-        choice = int(input("Wybierz opcję: "))
+        choice = int(input("Choose an option: "))
 
         if choice == 1:
-            title = input("Podaj tytuł książki: ")
-            author = input("Podaj autora książki: ")
-            pages = input("Podaj ilość stron książki: ")
+            title = input("Type the book title: ")
+            author = input("Type the book author: ")
+            pages = input("Type the book pages: ")
             bm.add_book(author, title, pages)
-            print(f"Książka '{title}' została dodana pomyślnie")
 
         elif choice == 2:
-            book_id_or_title = input("Podaj ID lub tytuł książki do usunięcia: ")
+            book_id_or_title = input("Type the book id or title to be deleted: ")
             bm.delete_book(book_id_or_title)
 
         elif choice == 3:
-            print("1. Dodaj klienta")
-            print("2. Zaktualizuj dane klienta")
-            action = input("wybierz:")
+            print("1. Adda customer")
+            print("2. Update user address")
+            action = input("Choose:")
 
             if action == "1":
-                name = input("Podaj imię i nazwisko klienta : ")
-                email = input("Podaj e-mail klienta: ")
-                phone = input("Podaj numer tel. klienta:")
+                name = input("Type the client name : ")
+                email = input("Type the client e-mail: ")
+                phone = input("Type the client phone number:")
                 cm.add_customer(name, email, phone)
 
             elif action == "2":
-                customer_id = input("Podaj ID klienta którego chcesz zaktualizować:")
-                street = input("Podaj ulicę:")
-                city = input("Podaj miasto: ")
-                country = input("Podaj kraj: ")
-                cm.update_customer_address(int(customer_id), street, city, country)
+                customer_id = int(input("Type the client ID that you want to update:"))
+                street = input("Type the street address: :")
+                city = input("Type the city address: ")
+                country = input("Type the country: ")
+                cm.update_customer_address(customer_id, street, city, country)
 
             else:
                 print("Wrong action")
 
         elif choice == 4:
-            print("1. Usuń po ID")
-            print("2. Usuń po imieniu")
-            action = input("wybierz: ")
+            print("1. Delete by ID")
+            print("2. Delete by name")
+            action = input("Choose: ")
+
             if action == "1":
-                customer_id = int(input("Podaj ID klienta do usunięcia: "))
+                customer_id = int(input("Type the client ID that you want to delete: "))
                 cm.remove_customer(customer_id=customer_id)
             elif action == "2":
-                customer_name = input("Podaj imie klienta: ")
+                customer_name = input("Type the client name that you want to delete: ")
                 cm.remove_customer(name=customer_name)
             else:
                 print("Wrong action")
 
         elif choice == 5:
-            customer_id = input("Podaj ID klienta: ")
-            book_ids = input("Podaj tytuły książek oddzielone przecinkiem: "). split(", ")
+            customer_id = input("Type the client ID: ")
+            book_ids = input("Type the titles of the books that you want to borrow (by comma - ', '): "). split(", ")
             lm.borrow_books(int(customer_id), *book_ids)
 
         elif choice == 6:
-            customer_id = input("Podaj ID klienta:")
-            book_titles = input("Podaj po przecinku tytuły książek do oddania: "). split(", ")
+            customer_id = input("Type the client ID: ")
+            book_titles = input("Type the titles of the books that you want to return (by comma - ', '): "). split(", ")
             lm.return_book(int(customer_id), *book_titles)
 
         elif choice == 7:
-            print("Spis książek:")
+            print("List of books:")
             bm.print_books()
+
         elif choice == 0:
-            print("Program został zakończony")
+            print("The program has ended")
             break
 
         else:
-            print("Zły wybór, spróbuj ponownie")
+            print("Wrong choice, try again")
 
 if __name__ == "__main__":
     main()

@@ -56,6 +56,8 @@ def add_book(author: str, title: str, pages: str) -> bool:
     time = datetime.date.today()
     df.loc[max_index] = [author, title, pages, time, time]
     df.to_csv("Library/book.csv")
+    print(f"Book was successfully added")
+    return True
 
 
 def delete_book(id_or_title):
