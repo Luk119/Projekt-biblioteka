@@ -17,8 +17,8 @@ def main():
         choice = int(input("Wybierz opcję: "))
 
         if choice == 1:
-            author = input("Podaj autora książki: ")
             title = input("Podaj tytuł książki: ")
+            author = input("Podaj autora książki: ")
             pages = input("Podaj ilość stron książki: ")
             bm.add_book(author, title, pages)
             print(f"Książka '{title}' została dodana pomyślnie")
@@ -43,7 +43,7 @@ def main():
                 street = input("Podaj ulicę:")
                 city = input("Podaj miasto: ")
                 country = input("Podaj kraj: ")
-                cm.update_customer_address(customer_id, street, city, country)
+                cm.update_customer_address(int(customer_id), street, city, country)
 
             else:
                 print("Wrong action")
@@ -63,13 +63,13 @@ def main():
 
         elif choice == 5:
             customer_id = input("Podaj ID klienta: ")
-            book_ids = input("Podaj ID książek oddzielone spacją: "). split(" ")
-            lm.borrow_books(customer_id, *book_ids)
+            book_ids = input("Podaj tytuły książek oddzielone przecinkiem: "). split(",")
+            lm.borrow_books(int(customer_id), *book_ids)
 
         elif choice == 6:
             customer_id = input("Podaj ID klienta:")
-            book_ids = input("Podaj ID książki do oddania: ")
-            lm.return_book(customer_id, *book_ids)
+            book_title = input("Podaj tytuł książki do oddania: ")
+            lm.return_book(int(customer_id), book_title)
 
         elif choice == 0:
             print("Program został zakończony")
