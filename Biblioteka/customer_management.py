@@ -28,7 +28,7 @@ def add_customer(name, email, phone):
     else:
         print("Error - Database directory does not exist")
 
-    print("Klient dodany pomyślnie, plik klienta utworzony")
+    print("Customer created correctly, client file was successfully added")
 
 def update_customer_address(customer_id, street, city, country):
     df_address = pd.read_csv("Library/address.csv", index_col='ID')
@@ -41,63 +41,65 @@ def remove_customer(customer_id=None, name=""):
 
     if customer_id is not None:
         if customer_id not in df_customer.index.values:
-            print("Klient o podanym ID nie został utworzony.")
-            return 1
+            print("Error - A customer with given id has not been created.")
+            return False
         else:
             df_customer = df_customer.drop(customer_id)
             df_customer.to_csv("Library/customer.csv")
-            print(f"Customer {customer_id} removed from 'customer.csv'")
+            print(f"Customer {customer_id} removed from 'customer.csv' file")
 
         if customer_id not in df_address.index.values:
-            print(f"Brak danych klienta {customer_id} w pliku 'address.csv'")
+            print(f"Customer {customer_id} has no data in 'address.csv' file")
         else:
             df_address = df_address.drop(customer_id)
             df_address.to_csv("Library/address.csv")
-            print(f"Customer {customer_id} removed from 'address.csv'")
+            print(f"Customer {customer_id} removed from 'address.csv' file")
 
         if os.path.exists(f"DATABASE/{customer_id}.txt"):
             os.remove(f"DATABASE/{customer_id}.txt")
-            print(f"Customer {customer_id} removed from 'DATABASE/{customer_id}.txt'")
+            print(f"Customer {customer_id} removed from 'DATABASE/{customer_id}.txt' file")
+        else:
+            print(f"Customer {customer_id} has no data in 'DATABASE/{customer_id}.txt' file")
 
-
-        return 0
+        return True
 
     else:
         if name not in df_customer["NAME"].values:
-            return 1
+            print("Error - A customer with the given name and surname has not been created.")
+            return False
 
         try:
             id_from_name = df_customer[df_customer['NAME'] == name].index.values[0]
 
         except IndexError as e:
             print(e)
-            return 1
+            return False
 
         if id_from_name in df_customer:
             df_customer = df_customer.drop(id_from_name)
             df_customer.to_csv("Library/customer.csv")
-            print(f"Customer {id_from_name} removed from 'customer.csv'")
+            print(f"Customer {id_from_name} removed from 'customer.csv' file")
         else:
-            print(f"Brak danych klienta {id_from_name} w pliku 'customer.csv'")
+            print(f"Customer {id_from_name} has no data in 'customer.csv' file")
 
 
         if id_from_name not in df_address.index.values:
-            print(f"Brak danych klienta {id_from_name} w pliku 'address.csv'")
+            print(f"Customer {id_from_name} has no data in 'address.csv' file")
 
         else:
             df_address = df_address.drop(id_from_name)
             df_address.to_csv("Library/address.csv")
-            print(f"Customer {id_from_name} removed from 'address.csv'")
+            print(f"Customer {id_from_name} removed from 'address.csv' file")
 
 
         if not os.path.exists(f"DATABASE/{id_from_name}.txt"):
-            print(f"Brak danych klienta {id_from_name} w pliku {id_from_name}.txt")
+            print(f"Customer {id_from_name} has no data in '{id_from_name}.txt' file")
 
         else:
             os.remove(f"DATABASE/{id_from_name}.txt")
-            print(f"Customer {id_from_name} removed from 'DATABASE/{id_from_name}.txt'")
+            print(f"Customer {id_from_name} removed from 'DATABASE/{id_from_name}.txt' file")
 
-        return 0
+        return True
 
 
 
