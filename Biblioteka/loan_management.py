@@ -1,5 +1,6 @@
 import os
 import datetime
+from returnBookDecorator import decorator
 import pandas as pd
 def borrow_books(customer_id, *args):
     time = datetime.date.today()
@@ -14,14 +15,14 @@ def borrow_books(customer_id, *args):
                 author = book["AUTHOR"].values[0]
                 pages = book["PAGES"].values[0]
                 file.write(f"\nTITLE: {title}, AUTHOR: {author}, PAGES: {pages}, BORROWED: {time}, DUE_DATE: {next_month}, RETURNED: False")
-        print("Books borrowed!")
+        print("Books borrowed successfully!")
     else:
         print("Error - Database directory does not exist")
 
 
+@decorator
 def return_book(customer_id, book):
     time = datetime.date.today()
-
     if os.path.exists(f"DATABASE/{customer_id}.txt"):
         with open(f"DATABASE/{customer_id}.txt", "r") as file:
             lines = file.readlines()

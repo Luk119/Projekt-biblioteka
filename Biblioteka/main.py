@@ -64,13 +64,13 @@ def main():
 
         elif choice == 5:
             customer_id = input("Podaj ID klienta: ")
-            book_ids = input("Podaj tytuły książek oddzielone przecinkiem: "). split(",")
+            book_ids = input("Podaj tytuły książek oddzielone przecinkiem: "). split(", ")
             lm.borrow_books(int(customer_id), *book_ids)
 
         elif choice == 6:
             customer_id = input("Podaj ID klienta:")
-            book_title = input("Podaj tytuł książki do oddania: ")
-            lm.return_book(int(customer_id), book_title)
+            book_titles = input("Podaj po przecinku tytuły książek do oddania: "). split(", ")
+            lm.return_book(int(customer_id), *book_titles)
 
         elif choice == 7:
             print("Spis książek:")

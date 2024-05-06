@@ -36,8 +36,9 @@ def update_customer_address(customer_id, street, city, country):
     df_address.to_csv("Library/address.csv")
 
 def remove_customer(customer_id=None, name=""):
-    df_customer = pd.read_csv("Library/customer.csv", usecols=['ID', 'NAME', 'E-MAIL', 'PHONE', 'CREATED', 'UPDATED'],index_col='ID')
+    df_customer = pd.read_csv("Library/customer.csv", usecols=['ID', 'NAME', 'E-MAIL', 'PHONE', 'CREATED', 'UPDATED'], index_col='ID')
     df_address = pd.read_csv("Library/address.csv", usecols=['ID', "STREET", "CITY", "COUNTRY"], index_col="ID")
+
 
     if customer_id is not None:
         if customer_id not in df_customer.index.values:
