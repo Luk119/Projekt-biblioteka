@@ -10,7 +10,6 @@ def add_book(author, title, pages):
 
     time = datetime.date.today()
     df.loc[max_index] = [author, title, pages, time, time]
-    print(df.head(5))
     df.to_csv("Library/book.csv")
 def delete_book(id_or_title):
     df = pd.read_csv("Library/book.csv")
@@ -30,8 +29,10 @@ def delete_book(id_or_title):
     df.to_csv("Library/book.csv", index=False)
     print("Książka została usunięta")
 
-
     return 0
 
+def print_books():
+    df = pd.read_csv("Library/book.csv", usecols=['ID', 'AUTHOR', 'TITLE', 'PAGES', 'CREATED', 'UPDATED'], index_col='ID')
+    print(df.head(1000))
 
 

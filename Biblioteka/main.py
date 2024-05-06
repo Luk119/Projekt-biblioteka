@@ -9,6 +9,7 @@ def print_menu():
     print("4. - Usuń klienta")
     print("5. - Wypożycz książki")
     print("6. - Zwróć książki")
+    print("7. - Wypisz spis książek")
     print("0. - Zamknij program")
 
 def main():
@@ -71,6 +72,9 @@ def main():
             book_title = input("Podaj tytuł książki do oddania: ")
             lm.return_book(int(customer_id), book_title)
 
+        elif choice == 7:
+            print("Spis książek:")
+            bm.print_books()
         elif choice == 0:
             print("Program został zakończony")
             break
