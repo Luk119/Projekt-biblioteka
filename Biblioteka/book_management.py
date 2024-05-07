@@ -47,14 +47,16 @@ def add_book(author: str, title: str, pages: str) -> bool:
     Returns:
         bool: True if the book is added correctly, False if it is not added correctly.
     """
-    df = pd.read_csv("Library/book.csv", usecols=['ID', 'AUTHOR', 'TITLE', 'PAGES', 'CREATED', 'UPDATED'], index_col='ID')
+    df = pd.read_csv("Library/book.csv",
+                     usecols=['ID', 'AUTHOR', 'TITLE', 'PAGES', 'CREATED', 'UPDATED', "IS_BORROWED"],
+                     index_col='ID')
 
     max_index = df.shape[0] + 1
     while max_index in df.index:
         max_index += 1
 
     time = datetime.date.today()
-    df.loc[max_index] = [author, title, pages, time, time]
+    df.loc[max_index] = [author, title, pages, time, time, False]
     df.to_csv("Library/book.csv")
     print(f"Book was successfully added")
     return True
@@ -97,7 +99,7 @@ def print_books():
     returns:
         nothing
     """
-    df = pd.read_csv("Library/book.csv", usecols=['ID', 'AUTHOR', 'TITLE', 'PAGES', 'CREATED', 'UPDATED'], index_col='ID')
+    df = pd.read_csv("Library/book.csv",
+                     usecols=['ID', 'AUTHOR', 'TITLE', 'PAGES', 'CREATED', 'UPDATED'],
+                     index_col='ID')
     print(df.head(1000))
-
-

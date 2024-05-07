@@ -60,7 +60,9 @@ def add_customer(name, email, phone):
         return False
 
     try:
-        df = pd.read_csv("Library/customer.csv", usecols=['ID', 'NAME', 'E-MAIL', 'PHONE', 'CREATED', 'UPDATED'], index_col='ID')
+        df = pd.read_csv("Library/customer.csv",
+                         usecols=['ID', 'NAME', 'E-MAIL', 'PHONE', 'CREATED', 'UPDATED'],
+                         index_col='ID')
 
     except FileNotFoundError as e:
         print(e)
@@ -99,19 +101,26 @@ def update_customer_address(customer_id, street, city, country):
     returns:
         None
     """
+    df_customer = pd.read_csv("Library/customer.csv")
 
-    df_address = pd.read_csv("Library/address.csv", index_col='ID')
-    df_address.loc[customer_id] = [street, city, country]
-    df_address.to_csv("Library/address.csv")
+    if customer_id in df_customer["ID"].values:
+        df_address = pd.read_csv("Library/address.csv", index_col='ID')
+        df_address.loc[customer_id] = [street, city, country]
+        df_address.to_csv("Library/address.csv")
 
-    time = datetime.date.today()
+        time = datetime.date.today()
 
-    df_customer = pd.read_csv("Library/customer.csv", usecols=['ID', 'NAME', 'E-MAIL', 'PHONE', 'CREATED', 'UPDATED'], index_col="ID")
-    df_customer['UPDATED'] = df_customer['UPDATED'].astype(str)
-    df_customer.loc[customer_id, "UPDATED"] = str(time)
-    df_customer.to_csv("Library/customer.csv")
+        df_customer = pd.read_csv("Library/customer.csv",
+                                  usecols=['ID', 'NAME', 'E-MAIL', 'PHONE', 'CREATED', 'UPDATED'],
+                                  index_col="ID")
 
-    print(f"The Customer {customer_id} has been successfully updated.")
+        df_customer['UPDATED'] = df_customer['UPDATED'].astype(str)
+        df_customer.loc[customer_id, "UPDATED"] = str(time)
+        df_customer.to_csv("Library/customer.csv")
+
+        print(f"The Customer {customer_id} has been successfully updated.")
+    else:
+        print("The customer does not exist")
 
 
 def remove_customer(customer_id=None, name=""):
@@ -126,8 +135,13 @@ def remove_customer(customer_id=None, name=""):
             bool: True if the customer is removed correctly, False otherwise.
     """
 
-    df_customer = pd.read_csv("Library/customer.csv", usecols=['ID', 'NAME', 'E-MAIL', 'PHONE', 'CREATED', 'UPDATED'], index_col='ID')
-    df_address = pd.read_csv("Library/address.csv", usecols=['ID', "STREET", "CITY", "COUNTRY"], index_col="ID")
+    df_customer = pd.read_csv("Library/customer.csv",
+                              usecols=['ID', 'NAME', 'E-MAIL', 'PHONE', 'CREATED', 'UPDATED'],
+                              index_col='ID')
+
+    df_address = pd.read_csv("Library/address.csv",
+                             usecols=['ID', "STREET", "CITY", "COUNTRY"],
+                             index_col="ID")
 
     if customer_id is not None:
         if customer_id not in df_customer.index.values:
@@ -195,6 +209,8 @@ def print_customers():
     returns:
         nothing
     """
-    df_customer = pd.read_csv("Library/customer.csv", usecols=['ID', 'NAME', 'E-MAIL', 'PHONE'], index_col='ID')
-    print(df_customer.head(1000))
+    df_customer = pd.read_csv("Library/customer.csv",
+                              usecols=['ID', 'NAME', 'E-MAIL', 'PHONE'],
+                              index_col='ID')
 
+    print(df_customer.head(1000))

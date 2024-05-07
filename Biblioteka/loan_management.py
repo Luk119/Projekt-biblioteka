@@ -46,15 +46,19 @@ def borrow_books(customer_id, *args):
     next_month = time + datetime.timedelta(days=31)
 
     if os.path.exists("DATABASE"):
-        df_books = pd.read_csv("Library/book.csv", usecols=["TITLE", "AUTHOR", "PAGES"])
+        df_book = pd.read_csv("Library/book.csv",
+                              usecols=["ID", "AUTHOR", "TITLE", "PAGES", "CREATED", "UPDATED", "IS_BORROWED"],
+                              index_col="ID")
 
         with open(f"DATABASE/{customer_id}.txt", "a") as file:
             for title in args:
-                book = df_books[df_books["TITLE"] == title]
+                book = df_book[df_book["TITLE"] == title]
                 author = book["AUTHOR"].values[0]
                 pages = book["PAGES"].values[0]
-                file.write(f"\nTITLE: {title}, AUTHOR: {author}, PAGES: {pages}, BORROWED: {time}, DUE_DATE: {next_month}, RETURNED: False")
-        print("Books borrowed successfully!")
+                df_book.at[book.index[0], "IS_BORROWED"] = True
+                df_book.to_csv("Library/book.csv")
+                file.write(f"\nTITLE: {title}, AUTHOR: {author}, PAGES: {pages},"
+                           f" BORROWED: {time}, DUE_DATE: {next_month}, RETURNED: False")
         return True
 
     else:
@@ -63,7 +67,7 @@ def borrow_books(customer_id, *args):
 
 
 @decorator
-def return_book(customer_id, book):
+def return_book(customer_id, title):
     """
         Allows a customer to return a borrowed book to the library.
 
@@ -77,15 +81,22 @@ def return_book(customer_id, book):
 
     time = datetime.date.today()
     if os.path.exists(f"DATABASE/{customer_id}.txt"):
+        df_book = pd.read_csv("Library/book.csv", index_col="ID")
+
         with open(f"DATABASE/{customer_id}.txt", "r") as file:
             lines = file.readlines()
 
         for i, line in enumerate(lines, 0):
-            if f"TITLE: {book}" in line:
+            if f"TITLE: {title}" in line:
                 lines[i] = lines[i].replace("False", f"{time}")
 
         with open(f"DATABASE/{customer_id}.txt", "w") as file:
             file.writelines(lines)
+
+        book_index = df_book[df_book["TITLE"] == title].index[0]
+
+        df_book.at[book_index, "IS_BORROWED"] = False
+        df_book.to_csv("Library/book.csv")
         print("Books returned successfully!")
         return True
 
