@@ -34,7 +34,7 @@ def borrow_books(customer_id, *args):
     """
     Allows a customer to borrow books from the library.
 
-    Args:
+    args:
         customer_id (int): The ID of the customer borrowing the books.
         *args (str): List of book titles to be borrowed.
 
@@ -69,14 +69,14 @@ def borrow_books(customer_id, *args):
 @decorator
 def return_book(customer_id, title):
     """
-        Allows a customer to return a borrowed book to the library.
+    Allows a customer to return a borrowed book to the library.
 
-        Args:
-            customer_id (int): The ID of the customer returning the book.
-            book (str): Title of the book to be returned.
+    args:
+        customer_id (int): The ID of the customer returning the book.
+        book (str): Title of the book to be returned.
 
-        returns:
-            bool: True if the book is returned successfully, False otherwise.
+    returns:
+        bool: True if the book is returned successfully, False otherwise.
     """
 
     time = datetime.date.today()

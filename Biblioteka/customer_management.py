@@ -45,7 +45,7 @@ def add_customer(name, email, phone):
     """
     Adds a new customer to the library system.
 
-        Args:
+        args:
             name (str): The name of the customer.
             email (str): The email address of the customer.
             phone (str): The phone number of the customer.
@@ -92,14 +92,14 @@ def update_customer_address(customer_id, street, city, country):
     """
     Updates the address of a customer in the library system.
 
-    Args:
+    args:
         customer_id (int): The ID of the customer whose address is to be updated.
         street (str): The street of the customer's address.
         city (str): The city of the customer's address.
         country (str): The country of the customer's address.
 
     returns:
-        None
+        nothing
     """
     df_customer = pd.read_csv("Library/customer.csv")
 
@@ -125,14 +125,14 @@ def update_customer_address(customer_id, street, city, country):
 
 def remove_customer(customer_id=None, name=""):
     """
-        Removes a customer from the library system.
+    Removes a customer from the library system.
 
-        Args:
-            customer_id (int, optional): The ID of the customer to be removed.
-            name (str, optional): The name of the customer to be removed.
+    args:
+        customer_id (int, optional): The ID of the customer to be removed.
+        name (str, optional): The name of the customer to be removed.
 
-        returns:
-            bool: True if the customer is removed correctly, False otherwise.
+    returns:
+        bool: True if the customer is removed correctly, False otherwise.
     """
 
     df_customer = pd.read_csv("Library/customer.csv",
@@ -205,6 +205,9 @@ def remove_customer(customer_id=None, name=""):
 def print_customers():
     """
     Prints information about all customers stored in the "Library/books.csv" file.
+
+    args:
+        none
 
     returns:
         nothing

@@ -2,7 +2,7 @@ def decorator(func):
     """
     Decorator function to handle book returning operations.
 
-    Args:
+    args:
         func (function): Function to be decorated.
 
     returns:
