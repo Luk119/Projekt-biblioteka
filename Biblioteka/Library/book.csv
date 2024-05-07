@@ -1,6 +1,10 @@
 ID,AUTHOR,TITLE,PAGES,CREATED,UPDATED,IS_BORROWED
 1,Adam Mickiewicz,Pan Tadeusz,340,2024-05-05,2024-05-05,False
-4,Stanisław Wyspiański,Wesele,431,2024-05-06,2024-05-06,False
-5,Adam Mickiewicz,Dziady,543,2024-05-06,2024-05-06,False
-6,Bolesław Prus,Lalka,541,2024-05-06,2024-05-06,True
-7,Henryk Sienkiewicz,W pustyni i w puszczy,309,2024-05-07,2024-05-07,False
+2,Stanisław Wyspiański,Wesele,431,2024-05-06,2024-05-06,True
+3,Adam Mickiewicz,Dziady,543,2024-05-06,2024-05-06,False
+4,Bolesław Prus,Lalka,541,2024-05-06,2024-05-06,False
+5,Henryk Sienkiewicz,W pustyni i w puszczy,309,2024-05-07,2024-05-07,False
+6,Sofokles,Antygona,237,2024-05-07,2024-05-07,False
+7,Sofokles,Król Edyp,152,2024-05-07,2024-05-07,False
+8,Adam Mickiewicz,Oda do młodości,351,2024-05-07,2024-05-07,False
+9,Juliusz Słowacki,Kordian,296,2024-05-07,2024-05-07,True
