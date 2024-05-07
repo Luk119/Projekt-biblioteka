@@ -153,7 +153,7 @@ def remove_customer(customer_id=None, name=""):
             print(f"Customer {customer_id} removed from 'customer.csv' file")
 
         if customer_id not in df_address.index.values:
-            print(f"Customer {customer_id} has no data in 'address.csv' file")
+            print(f"Error - Customer {customer_id} has no data in 'address.csv' file")
         else:
             df_address = df_address.drop(customer_id)
             df_address.to_csv("Library/address.csv")
@@ -163,7 +163,7 @@ def remove_customer(customer_id=None, name=""):
             os.remove(f"DATABASE/{customer_id}.txt")
             print(f"Customer {customer_id} removed from 'DATABASE/{customer_id}.txt' file")
         else:
-            print(f"Customer {customer_id} has no data in 'DATABASE/{customer_id}.txt' file")
+            print(f"Error - Customer {customer_id} has no data in 'DATABASE/{customer_id}.txt' file")
 
         return True
 
@@ -184,10 +184,10 @@ def remove_customer(customer_id=None, name=""):
             df_customer.to_csv("Library/customer.csv")
             print(f"Customer {id_from_name} removed from 'customer.csv' file")
         else:
-            print(f"Customer {id_from_name} has no data in 'customer.csv' file")
+            print(f"Error - Customer {id_from_name} has no data in 'customer.csv' file")
 
         if id_from_name not in df_address.index.values:
-            print(f"Customer {id_from_name} has no data in 'address.csv' file")
+            print(f"Error - Customer {id_from_name} has no data in 'address.csv' file")
 
         else:
             df_address = df_address.drop(id_from_name)
@@ -195,7 +195,7 @@ def remove_customer(customer_id=None, name=""):
             print(f"Customer {id_from_name} removed from 'address.csv' file")
 
         if not os.path.exists(f"DATABASE/{id_from_name}.txt"):
-            print(f"Customer {id_from_name} has no data in '{id_from_name}.txt' file")
+            print(f"Error - Customer {id_from_name} has no data in '{id_from_name}.txt' file")
 
         else:
             os.remove(f"DATABASE/{id_from_name}.txt")

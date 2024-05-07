@@ -30,7 +30,7 @@ def not_borrowed(*args):
             else:
                 print(f"Book is not available, '{title}' is currently borrowed by other customer.")
         else:
-            print(f"'{title}' does not exists in library database.")
+            print(f"Error '{title}' does not exists in library database.")
 
     return list_not_borrowed
 
@@ -40,10 +40,10 @@ def is_valid_customer_id(customer_id):
         int(customer_id)
 
     except ValueError as e:
-        print(e)
+        print("Error", e)
         return False
     except TypeError as e:
-        print(e)
+        print("Error", e)
         return False
 
     return True

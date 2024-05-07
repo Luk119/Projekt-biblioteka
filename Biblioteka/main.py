@@ -35,18 +35,18 @@ def main():
             action = input("Choose:")
 
             if action == "1":
-                name = input("Type the client name : ")
+                name = input("Type the customer name : ")
                 email = input("Type the customer e-mail: ")
                 phone = input("Type the customer phone number: ")
                 cm.add_customer(name, email, phone)
 
             elif action == "2":
-                customer_id = int(input("Type the customer ID that you want to update: "))
+                customer_id = input("Type the customer ID that you want to update: ")
                 if iv.is_valid_customer_id(customer_id):
                     street = input("Type the street address: ")
                     city = input("Type the city address: ")
                     country = input("Type the country: ")
-                    cm.update_customer_address(customer_id, street, city, country)
+                    cm.update_customer_address(int(customer_id), street, city, country)
 
             else:
                 print("Wrong action")
@@ -57,9 +57,9 @@ def main():
             action = input("Choose: ")
 
             if action == "1":
-                customer_id = int(input("Type the customer ID that you want to delete: "))
+                customer_id = input("Type the customer ID that you want to delete: ")
                 if iv.is_valid_customer_id(customer_id):
-                    cm.remove_customer(customer_id=customer_id)
+                    cm.remove_customer(customer_id=int(customer_id))
             elif action == "2":
                 customer_name = input("Type the customer name that you want to delete: ")
                 cm.remove_customer(name=customer_name)
@@ -67,21 +67,21 @@ def main():
                 print("Wrong action")
 
         elif choice == 5:
-            customer_id = int(input("Type the customer ID: "))
+            customer_id = input("Type the customer ID: ")
             if iv.is_valid_customer_id(customer_id):
-                if iv.is_updated(customer_id):
+                if iv.is_updated(int(customer_id)):
                     book_titles = input("Type the titles of the books "
                                         "that you want to borrow(by comma - ','):").split(",")
 
-                    lm.borrow_books(customer_id, *iv.not_borrowed(*book_titles))
+                    lm.borrow_books(int(customer_id), *iv.not_borrowed(*book_titles))
                 else:
                     print("This customer is not updated yet. Complete the address information.")
 
         elif choice == 6:
-            customer_id = int(input("Type the customer ID: "))
+            customer_id = input("Type the customer ID: ")
             if iv.is_valid_customer_id(customer_id):
                 book_titles = input("Type the titles of the books that you want to return(by comma - ','): "). split(",")
-                lm.return_book(customer_id, *book_titles)
+                lm.return_book(int(customer_id), *book_titles)
 
         elif choice == 7:
             print("List of books:")
